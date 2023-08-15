@@ -1,0 +1,68 @@
+openapi: 3.0.0
+info:
+  title: Students
+  description: informations des étudiants
+  version: 3.0.0
+
+paths:
+  /students:
+    get:
+      summary: Récupérer la liste des étudiants
+      description: Récupère la liste complète des étudiants enregistrés.
+      responses:
+        "200":
+          description: Succès. Liste des étudiants récupérée.
+          content:
+            application/json:
+              example:
+                students:
+                  - id: 0
+                    nom: Rakoto
+                    prenom: Jean
+                    birthdate: 2004-08-15
+                  - id: 1
+                    nom: Dupont
+                    prenom: Alice
+                    birthdate: 1999-03-22
+
+    post:
+      summary: Ajouter un nouvel étudiant
+      description: Ajoute un nouvel étudiant à la liste.
+      requestBody:
+        description: Détails du nouvel étudiant
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nom:
+                  type: string
+                prenom:
+                  type: string
+                birthdate:
+                  type: string
+                  format: date
+              required:
+                - nom
+                - prenom
+                - birthdate
+      responses:
+        "201":
+          description: Étudiant créé avec succès.
+        "400":
+          description: Requête invalide. Vérifiez les paramètres.
+components:
+  schemas:
+    Student:
+      type: object
+      properties:
+        id:
+          type: integer
+        nom:
+          type: string
+        prenom:
+          type: string
+        birthdate:
+          type: string
+          format: date
